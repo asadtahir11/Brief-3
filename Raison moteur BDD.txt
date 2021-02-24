@@ -1,0 +1,11 @@
+Les raisons qui ont poussé l'equipe à changer de stratégie et de se diriger vers le moteur relationnel MySQL 
+sont :
+        - Du fait de sa création récente (création il y a plusieurs dizaines d’années), la technologie est 
+          mature et à un language standard 
+        - La possibilité de mettre en œuvre des requêtes complexes (croisement multiple des données)
+        - On a une garantie que les transactions sont atomiques, cohérentes, isolées et durables – principe ACID 
+          (Atomic, Consistent, Independant, Durable)
+
+Tout ces avantages sont nécessaire pour le developpement du jeu MMORPG "Le village d'SQLix" et c'est donc pour 
+ca que le moteur relationnel MySQL à été choisis.
+         

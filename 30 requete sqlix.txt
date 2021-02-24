@@ -1,0 +1,32 @@
+1  -  SELECT * FROM potion
+2  -  SELECT NomTrophee,NbPoints FROM `categorie` WHERE NbPoints = 3
+3  -  SELECT NomVillage,NbHuttes FROM `village` WHERE NbHuttes > 35
+4  -  SELECT NumTrophee,DatePrise FROM `trophee` WHERE DatePrise LIKE '2052-06-%' or DatePrise LIKE '2052-05-%'
+5  -  SELECT Nom FROM `habitant` WHERE Nom LIKE 'a%r%'
+6  -  SELECT Numhab,NumPotion FROM `absorber` WHERE NumPotion = 1 or NumPotion = 3 or NumPotion = 4
+7  -  SELECT NumTrophee,DatePrise,CodeCat,NumPreneur FROM `trophee`
+8  -  SELECT Nom FROM `habitant` WHERE NumVillage = 1
+9  -  SELECT nom FROM `trophee` JOIN habitant ON NumTrophee = NumHab WHERE CodeCat = 'BLT'
+10 -  SELECT libPotion, Formule, ConstituantPrincipal FROM `potion` WHERE NumPotion = 1 OR NumPotion = 4 OR NumPotion = 5
+11 -  SELECT LibPotion FROM `potion` JOIN `absorber` USING (NumPotion) WHERE numhab = 10
+12 -  SELECT Nom FROM `absorber` JOIN `habitant` USING (NumHab) WHERE NumPotion = 3
+      GROUP BY Nom
+13 -  SELECT Nom FROM `absorber` JOIN `habitant` USING (NumHab) WHERE NumPotion = 2 or NumPotion = 5
+      GROUP BY Nom
+14 -  SELECT NOM FROM `habitant` WHERE NumQualite IS NULL
+15 -  SELECT Nom FROM `absorber` JOIN habitant USING (NumHab) WHERE NumPotion = 1 AND dateA LIKE '2052-02%'
+16 -  SELECT Nom,Age FROM `habitant` ORDER BY Nom
+17 -  SELECT NomResserre,NomVillage,Superficie FROM `resserre` JOIN village USING (NumVillage) ORDER BY Superficie DESC
+18 -  SELECT COUNT(*) FROM `habitant` WHERE NumVillage = 5
+19 -  SELECT SUM(NbPoints) FROM `trophee` JOIN categorie USING (CodeCat) JOIN habitant ON trophee.NumPreneur = habitant.NumHab WHERE Nom = 'Goudurix'
+20 -  SELECT Min(DatePrise) FROM `trophee`
+21 -  SELECT SUM(quantite) FROM `absorber` JOIN potion USING (NumPotion) WHERE NumPotion = 2
+22 -  SELECT MAX(Superficie) FROM `resserre`
+23 -  SELECT NomVillage,COUNT(Nom) FROM `habitant` JOIN village USING (NumVillage) GROUP BY NomVillage
+24 -  SELECT Nom,COUNT(NumTrophee) FROM `trophee` JOIN habitant ON trophee.NumPreneur = habitant.NumHab GROUP BY Nom
+25 -  SELECT NomProvince,AVG(Age) FROM `village` JOIN habitant USING (NumVillage) JOIN province USING (NumProvince) GROUP BY NomProvince
+26 -  SELECT Nom,COUNT(NumPotion) FROM `absorber` JOIN habitant USING (NumHab) GROUP BY Nom
+27 -  SELECT Nom FROM `absorber` JOIN habitant USING (NumHab) WHERE NumPotion = 4 AND quantite > 2
+28 -  SELECT NomVillage FROM `resserre` JOIN village USING (NumVillage)
+29 -  SELECT NomVillage FROM `village` HAVING MAX(NbHuttes)
+30 -  SELECT Nom,COUNT(NumTrophee) FROM `trophee` JOIN habitant ON trophee.NumPreneur = habitant.NumHab GROUP BY Nom HAVING COUNT(NumTrophee)>1

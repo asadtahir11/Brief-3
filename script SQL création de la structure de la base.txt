@@ -1,0 +1,102 @@
+CREATE DATABASE sqlix_bdd DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+use sqlix_bdd
+
+CREATE TABLE qualite (
+	NumQualite int NOT NULL DEFAULT '0',
+	LibQualite varchar(50) DEFAULT NULL,
+	PRIMARY KEY (NumQualite)
+) ENGINE=InnoDB;
+
+CREATE TABLE province (
+	NumProvince int NOT NULL DEFAULT '0',
+	NomProvince varchar(50) DEFAULT NULL,
+	NomGouverneur varchar(50) DEFAULT NULL,
+	PRIMARY KEY (NumProvince)
+) ENGINE=InnoDB;
+
+CREATE TABLE village (
+	NumVillage int NOT NULL DEFAULT '0',
+	NomVillage varchar(50) DEFAULT NULL,
+	NbHuttes int NOT NULL DEFAULT '0',
+	NumProvince int NOT NULL DEFAULT '0',
+	PRIMARY KEY (NumVillage),
+	CONSTRAINT FK_NumProvince FOREIGN KEY (NumProvince) REFERENCES province(NumProvince)
+) ENGINE=InnoDB;
+
+CREATE TABLE habitant (
+	NumHab int NOT NULL DEFAULT '0',
+	Nom varchar(50) DEFAULT NULL,
+	Age int NOT NULL DEFAULT '0',
+	NumQualite int DEFAULT NULL,
+	NumVillage int NOT NULL DEFAULT '0',
+	CONSTRAINT FK_NumQualite FOREIGN KEY (NumQualite) REFERENCES qualite(NumQualite),
+	CONSTRAINT FK_NumVillage FOREIGN KEY (NumVillage) REFERENCES village(NumVillage),
+	PRIMARY KEY (NumHab)
+) ENGINE=InnoDB;
+
+CREATE TABLE resserre (
+	NumResserre int NOT NULL DEFAULT '0',
+	NomResserre varchar(50) DEFAULT NULL,
+	Superficie int NOT NULL DEFAULT '0',
+	NumVillage int NOT NULL DEFAULT '0',
+	CONSTRAINT FOREIGN KEY (NumVillage) REFERENCES village(NumVillage),
+	PRIMARY KEY (NumResserre)
+) ENGINE=InnoDB;
+
+CREATE TABLE categorie (
+	CodeCat varchar(50),
+	NomTrophee varchar(50) DEFAULT NULL,
+	NbPoints int NOT NULL DEFAULT '0',
+	PRIMARY KEY (CodeCat)
+) ENGINE=InnoDB;
+
+CREATE TABLE trophee (
+	NumTrophee int NOT NULL DEFAULT '0',
+	DatePrise DATE NOT NULL,
+	CodeCat varchar(50) DEFAULT NULL,
+	NumPreneur int NOT NULL DEFAULT '0',
+	NumResserre int NOT NULL DEFAULT '0',
+	CONSTRAINT FOREIGN KEY (CodeCat) REFERENCES categorie(CodeCat),
+	CONSTRAINT FOREIGN KEY (NumPreneur) REFERENCES habitant(NumHab),
+	CONSTRAINT FOREIGN KEY (NumResserre) REFERENCES resserre(NumResserre),
+	PRIMARY KEY (NumTrophee)
+) ENGINE=InnoDB;
+
+CREATE TABLE potion (
+	NumPotion int NOT NULL DEFAULT '0',
+	LibPotion varchar(50) DEFAULT NULL,
+	Formule varchar(50) DEFAULT NULL,
+	ConstituantPrincipal varchar(50) DEFAULT NULL,
+	PRIMARY KEY (NumPotion)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE fabriquer (
+	NumHab int NOT NULL DEFAULT '0',
+	NumPotion int NOT NULL DEFAULT '0',
+	PRIMARY KEY (NumPotion,NumHab),
+	CONSTRAINT FOREIGN KEY (NumPotion) REFERENCES potion(NumPotion),
+	CONSTRAINT FOREIGN KEY (NumHab) REFERENCES habitant(NumHab)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE absorber (
+	NumPotion int NOT NULL DEFAULT '0',
+	dateA DATE NOT NULL,
+	NumHab int NOT NULL DEFAULT '0',
+	quantite int NOT NULL DEFAULT '0',
+	PRIMARY KEY (NumPotion,dateA,NumHab),
+	CONSTRAINT FOREIGN KEY (NumPotion) REFERENCES potion(NumPotion),
+	CONSTRAINT FOREIGN KEY (NumHab) REFERENCES habitant(NumHab)	
+) ENGINE=InnoDB;
+
+
+
+
+
+
+
+
+	
+

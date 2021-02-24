@@ -1,0 +1,1 @@
+mysqldump -u root -p --databases sqlix_bdd > sqlix_bdd.sql
